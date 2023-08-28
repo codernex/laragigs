@@ -1,0 +1,4 @@
+@component("layout.app")
+
+
+@endcomponent
