@@ -9,12 +9,24 @@ use Illuminate\View\View;
 class ListingController extends Controller
 {
     public function  index(){
-        $listings= Listing::all();
+        $listings= Listing::latest()->filter(request(['tag','search']))->get();
 
-        return view("listing.index",["listings"=>]);
+
+        return view("listings.index",["listings"=>$listings]);
+    }
+
+    public function create(){
+        return view("listings.create");
     }
 
     public function show(Listing $listing):View{
-        return view("listing.show",["listing"=>$listing]);
+
+        if(!$listing){
+            abort(404);
+        }
+        return view("listings.show",["listing"=>$listing]);
+    }
+    public function store(Request $request){
+        dd($request->all());
     }
 }
